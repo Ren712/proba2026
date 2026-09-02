@@ -1,0 +1,19 @@
+Impresion de variables: Ojo que se imprime la variable segun el tipo indicado en el printf
+
+shadowing: Las variables locales tienen prioridad sobre las globales
+
+Const: redeclarar una var const tira un error
+
+static: redeclarar una static es como hablarle a una pared
+
+Orden de bits: el 0 es el menos significativo segun los profes (parece)
+
+sizeof: devuelve en bytes 
+
+uintx_t : x esta en BITS
+
+uintx_t != int64
+
+calculo de posiciones: pos + (var * sizeof(var))
+
+leer la consigna!!!!
