@@ -1,0 +1,2 @@
+Cambiar las funciones a doble puntero para que devuelvan un void
+Armar funcion del middle 

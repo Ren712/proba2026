@@ -1,0 +1,162 @@
+#include <stdint.h>
+#include <stdio.h>
+#define LONGFILE 2000
+
+typedef struct cuest_t
+{
+  uint8_t x;
+  uint8_t y;
+} cuest_t;
+/*
+ *   x: 4 MSB = cuanto me muevo left
+ *      4 LSB = cuanto me muevo right
+ *
+ *   y: 4 MSB = cuanto me muevo up
+ *      4 LSB = cuanto me muevo down
+ *
+ * En cada "turno" me muevo en la direccion que gane:
+ *      - Si right > left --> me muevo a la derecha (y visceversa)
+ *      - Si up > down    --> me muevo para arriba  (y visceversa)
+ * Obs. Me puedo mover en ambos ejes al mismo tiempo.
+ * Por Ejemplo:
+ *    right = 5 |
+ *    left  = 3 | >> Me muevo a la derecha (right) y hacia abajo (down)
+ *    up    = 2 |
+ *    down  = 6 |
+ *
+ * Consigna:
+ *   - Cada lectura de archivo empieza en la posicion (0 ; 0)
+ *   - El primer elemento del archivo es el indice 0
+ *   - Los movimientos son:
+ *       + up    --> suma en y
+ *       + right --> suma en x
+ *       - down  --> resta en y
+ *       - left  --> resta en x
+ *   - Para cada struct:
+ *       dx = right - left
+ *       dy = up - down
+ *
+ */
+
+int main(void)
+{
+  cuest_t arr[LONGFILE];
+  int cant[4] = {0};         // para la pregunta 1
+  int32_t manh[2] = {0};     // para la pregunta 2
+  uint32_t absmanh[2] = {0}; // para la pregunta 3
+  uint32_t totalmanh = 0;    // para la pregunta 3
+  uint32_t distmaxtemp = 0;
+  uint32_t distmax = 0;
+
+  /*
+  cant:
+  0 left
+  1 right
+  2 up
+  3 down
+
+  manh:
+  0 x
+  1 y
+  */
+
+  FILE *list = fopen("data.bin", "rb");
+  int i = 0;
+
+  int left = 0;
+  int right = 0;
+  int up = 0;
+  int down = 0;
+
+  if (list == NULL)
+  {
+    perror("No se pudo abrir el archivo");
+    return 1;
+  }
+
+  while (fread(&arr[i], sizeof(cuest_t), 1, list))
+  {
+    left = arr[i].x >> 4;
+    right = arr[i].x & 0b1111;
+    up = arr[i].y >> 4;
+    down = arr[i].y & 0b1111;
+
+    if ((left) > (right))
+    {
+      cant[0]++;
+      // printf(" left - ");
+    }
+    else if ((left) < (right)) // comparo los dos casos por si son iguales
+    {
+      cant[1]++;
+      // printf(" right - ");
+    }
+
+    if ((up) > (down))
+    {
+      cant[2]++;
+      // printf(" up - ");
+    }
+    else if ((up) < (down)) // comparo los dos casos por si son iguales
+    {
+      cant[3]++;
+      // printf(" down - ");
+    }
+
+    if (manh[0] + up - down < 0)
+    {
+      absmanh[0] = (manh[0] + up - down) * (-1);
+    }
+    else
+    {
+      absmanh[0] = manh[0] + up - down;
+    }
+
+    if (manh[1] + up - down < 0)
+    {
+      absmanh[1] = (manh[1] + up - down) * (-1);
+    }
+    else
+    {
+      absmanh[1] = manh[1] + up - down;
+    }
+
+    printf("abs: %d ~", absmanh[0]);
+    printf(" total: %d\t|\t", (manh[0] + up - down));
+
+    printf(" abs: %d ~", absmanh[1]);
+    printf(" total: %d\t|\t", (manh[1] + up - down));
+
+    distmaxtemp = absmanh[0] + absmanh[1];
+    printf("Dist TEMP:  %d", distmaxtemp);
+
+    if (distmaxtemp > distmax)
+    {
+      distmax = distmaxtemp;
+      printf(" Distmax nueva:  %d   ---------------------------   ", distmax);
+    }
+
+    manh[1] = up - down;
+    manh[0] = right - left;
+
+    /*if (totalmanh > 150)
+        {
+          printf("\n");
+          printf("i: %d \n", i);
+
+          return 0;
+        }
+    */
+
+    printf("\n");
+    i++;
+  }
+
+  for (int j = 0; j < 4; j++)
+  {
+    printf("i: %i, d: %d \n", j, cant[j]);
+  }
+  printf("i: %d \n", i);
+  printf(" Distmax nueva:  %d   -   ", distmax);
+  return 0;
+}
