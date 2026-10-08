@@ -2,7 +2,8 @@
 #define CATEDRA_H
 
 #include "header.h"
-#include "stdint.h"
+#include <stdint.h>
+#include <stdio.h>
 
 /* =========================================================
     ESTRUCTURAS
@@ -23,7 +24,8 @@ typedef struct
     int columna;
 } Posicion;
 
-typedef struct Node{
+typedef struct Node
+{
     uint8_t dato;
     struct Node *next;
 } Node;
