@@ -18,7 +18,7 @@ int main()
 
     /* Info Item B  */
     NodoGrilla **targets;
-    int size, distancia;
+    int size, distancia, alg = 0;
     NodoGrilla *start = CATEDRA_InfoRandom(primerNodo, &targets, &size, &distancia);
 
     /* Imprimir start, targets y distancia */
@@ -41,19 +41,26 @@ int main()
     imprimirPos(primerNodo, start, size, distancia, &posStartx, &posStarty);
     for (int i = 0; i < size; i++)
     {
-        printf("\n");
-        printf("\n");
+        // printf("\n");
+        // printf("\n");
         imprimirPos(primerNodo, *(targets + i), size, distancia, &posFinalx, &posFinaly);
         if ((abs(posStartx - posFinalx) + abs(posStarty - posFinaly)) == distancia)
         {
-            printf("\nCamino Valido para %c", (*(targets + i))->dato);
+            printf("\n\n Camino Valido para %c", (*(targets + i))->dato);
+            printPath(primerNodo, posStartx, posStarty, posFinalx, posFinaly);
+            alg = 1;
         }
     }
 
+    if (alg == 0)
+    {
+        printf("\n\nNo hay ningun camino valido");
+    }
+
     printf("\n");
-    printf(" X: %d", posStartx);
-    printf("\n");
-    printf(" Y: %d", posStarty);
+    // printf(" X: %d", posStartx);
+    // printf("\n");
+    // printf(" Y: %d", posStarty);
 
     freeMem(primerNodo);
 
