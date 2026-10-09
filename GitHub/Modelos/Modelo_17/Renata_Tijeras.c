@@ -5,8 +5,8 @@
 #include "funcs.c"
 #include "Catedra_M17.c"
 
-#define EJ1
-// #define EJ2
+// #define EJ1
+#define EJ2
 
 int main()
 {
@@ -72,12 +72,16 @@ int main()
     Node *first = CATEDRA_CrearLista();
 
     /* Item a --> Lista original */
+    imprimirGrilla(first);
 
     /* item b --> Lista original "marcada" */
+    imprimirGrillaM(first);
 
     /* Item c --> Funcion */
+    limpiarGrilla(first);
 
     /* item d --> Lista final y vector*/
+    freeLista(first);
 
 #endif // EJ2
     printf("\n");
