@@ -1,5 +1,6 @@
 #include "header.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 /* Funciones Ejercicio 1 */
 void imprimirPos(NodoGrilla *first, NodoGrilla *start, Posicion *pos)
@@ -129,3 +130,78 @@ void freeMem(NodoGrilla *first)
 }
 
 /* Funciones Ejercicio 2 */
+NodoDoble *crear_nodo(int num)
+{
+  NodoDoble *nodo = (NodoDoble *)malloc(sizeof(NodoDoble));
+  if (nodo == NULL)
+  {
+    printf("No se pudo crear el nodo");
+    return NULL;
+  }
+  nodo->numero = num;
+  nodo->next = NULL;
+  nodo->prev = NULL;
+
+  return nodo;
+}
+
+void funcionb(customElement *vector, int tamanio, NodoDoble **first, NodoDoble **last)
+{
+
+  int cantdel = 0;
+  NodoDoble *nuevoNodo;
+  NodoDoble *aux = *first;
+  customElement *chusma;
+
+  for (int i = 0; i < tamanio - cantdel; i++)
+  {
+    aux = *first;
+    chusma = &vector[i];
+    if (vector[i].esNro)
+    {
+      nuevoNodo = crear_nodo((vector[i].dato.numero));
+      if (cantdel == 0)
+      {
+        *first = nuevoNodo;
+        *last = nuevoNodo;
+      }
+      else
+      {
+        if (aux->next == NULL)
+        {
+          *last = nuevoNodo;
+        }
+        else
+        {
+          while (aux->next->numero > nuevoNodo->numero)
+          {
+            aux = aux->next;
+            if (aux->next == NULL)
+            {
+              *last = nuevoNodo;
+              break;
+            }
+          }
+        }
+        if (aux->next != NULL)
+        {
+          aux->next->prev = nuevoNodo;
+        }
+        nuevoNodo->next = aux->next;
+        aux->next = nuevoNodo;
+        nuevoNodo->prev = aux;
+      }
+      cantdel++;
+      printf("%d : %d \n", i, vector[i].dato.numero);
+      if (i + 1 < tamanio)
+      {
+        vector[i] = vector[i + cantdel];
+        i--;
+      }
+    }
+    else
+    {
+      printf("%d : %c \n", i, vector[i].dato.caracter);
+    }
+  }
+}

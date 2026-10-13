@@ -5,8 +5,8 @@
 #include "funcs.c"
 #include "Catedra_M16.c"
 
-#define EJ1
-// #define EJ2
+// #define EJ1
+#define EJ2
 
 int main()
 {
@@ -38,6 +38,48 @@ int main()
     printf("--- EJERCICIO 2 ---\n\n");
     int tamanio = 0;
     customElement *vec = CATEDRA_CrearVector(&tamanio);
+
+    for (int i = 0; i < tamanio; i++)
+    {
+        if (vec[i].esNro)
+        {
+            printf("%d : %d \n", i, vec[i].dato.numero);
+        }
+        else
+        {
+            printf("%d : %c \n", i, vec[i].dato.caracter);
+        }
+    }
+
+    NodoDoble *first;
+    NodoDoble *last = first;
+
+    funcionb(vec, tamanio, &first, &last);
+
+    NodoDoble *aux = first;
+    int cont = 0;
+
+    printf("MAIN:\n");
+    while (aux != NULL)
+    {
+        printf("%d | ", aux->numero);
+        aux = aux->next;
+        cont++;
+    }
+    printf("\n\n");
+
+    printf("MAIN 2:\n");
+    for (int i = 0; i < tamanio - cont; i++)
+    {
+        if (vec[i].esNro)
+        {
+            printf("%d : %d \n", i, vec[i].dato.numero);
+        }
+        else
+        {
+            printf("%d : %c \n", i, vec[i].dato.caracter);
+        }
+    }
 
 #endif // EJ2
     printf("\n");
