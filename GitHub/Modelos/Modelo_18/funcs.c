@@ -22,6 +22,27 @@ void imprimirGrilla(NodoGrilla *first)
   }
 }
 
+void freeMem(NodoGrilla *first)
+{
+  NodoGrilla *aux = first;
+  NodoGrilla *aux2 = first;
+  NodoGrilla *aux3 = first;
+  printf("\n");
+
+  while (aux != NULL)
+  {
+    while (aux != NULL)
+    {
+      aux3 = aux->right;
+      printf("%c | ", aux->dato);
+      free(aux);
+      aux = aux3;
+    }
+    printf("\n");
+    aux2 = aux2->down;
+    aux = aux2;
+  }
+}
 /* == == == == == = Ejercicio A == == == == == == */
 
 /*- **a**)

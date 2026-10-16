@@ -41,6 +41,7 @@ void freeMem(NodoGrilla *first)
 
   while (aux != NULL)
   {
+    // SI SE ROMPE PROBAR DE PONER EL AUX2 ACA!!
     while (aux != NULL)
     {
       aux3 = aux->right;

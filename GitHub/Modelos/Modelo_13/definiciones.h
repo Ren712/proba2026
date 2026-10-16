@@ -2,6 +2,8 @@
 #define _DEF_H
 
 #include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 typedef enum accion_t
 {

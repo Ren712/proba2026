@@ -38,6 +38,8 @@ int main(void)
     }
 
     imprimirGrilla(primerNodo);
+
+    freeMem(primerNodo);
     printf("\n\n");
     return 0;
 }
