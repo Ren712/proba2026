@@ -234,3 +234,17 @@ void toggleCirc(dnode_t **first)
 
   printf("\n");
 }
+
+void freeLista(dnode_t *first)
+{
+  dnode_t *aux = first;
+  dnode_t *aux2 = NULL;
+
+  while ((aux2 != first) && (aux != NULL))
+  {
+    aux2 = aux->next;
+    free(aux);
+    aux = aux2;
+  }
+  printf("Memoria Liberada \n");
+}

@@ -51,6 +51,8 @@ int main(void)
   toggleCirc(&(primero->prev));
   imprimirlistasolo((primero->prev));
 
+  freeLista((primero->prev));
+
 #endif
   /* Libere la memoria dinamica utilizada*/
 
